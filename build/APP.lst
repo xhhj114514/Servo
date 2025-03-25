@@ -1,0 +1,197 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"APP.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.rodata.APP_Init.str1.4,"aMS",%progbits,1
+  20              		.align	2
+  21              	.LC0:
+  22 0000 496E6974 		.ascii	"Init Success\015\012\000"
+  22      20537563 
+  22      63657373 
+  22      0D0A00
+  23              		.section	.text.APP_Init,"ax",%progbits
+  24              		.align	1
+  25              		.global	APP_Init
+  26              		.syntax unified
+  27              		.thumb
+  28              		.thumb_func
+  30              	APP_Init:
+  31              	.LFB134:
+  32              		.file 1 "APP/APP.c"
+   1:APP/APP.c     **** #include "APP.h"
+   2:APP/APP.c     **** 
+   3:APP/APP.c     **** 
+   4:APP/APP.c     **** 
+   5:APP/APP.c     **** void APP_Init()
+   6:APP/APP.c     **** {
+  33              		.loc 1 6 1 view -0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 0, uses_anonymous_args = 0
+  37 0000 30B5     		push	{r4, r5, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 12
+  40              		.cfi_offset 4, -12
+  41              		.cfi_offset 5, -8
+  42              		.cfi_offset 14, -4
+  43 0002 2DED028B 		vpush.64	{d8}
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 20
+  46              		.cfi_offset 80, -20
+  47              		.cfi_offset 81, -16
+  48 0006 83B0     		sub	sp, sp, #12
+  49              	.LCFI2:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s 			page 2
+
+
+  50              		.cfi_def_cfa_offset 32
+   7:APP/APP.c     ****     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1 );
+  51              		.loc 1 7 5 view .LVU1
+  52 0008 194C     		ldr	r4, .L3
+  53 000a 0021     		movs	r1, #0
+  54 000c 2046     		mov	r0, r4
+  55 000e FFF7FEFF 		bl	HAL_TIM_PWM_Start
+  56              	.LVL0:
+   8:APP/APP.c     ****     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2 );
+  57              		.loc 1 8 5 view .LVU2
+  58 0012 0421     		movs	r1, #4
+  59 0014 2046     		mov	r0, r4
+  60 0016 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+  61              	.LVL1:
+   9:APP/APP.c     ****     __HAL_TIM_MOE_ENABLE(&htim3);
+  62              		.loc 1 9 5 view .LVU3
+  63 001a 2268     		ldr	r2, [r4]
+  64 001c 536C     		ldr	r3, [r2, #68]
+  65 001e 43F40043 		orr	r3, r3, #32768
+  66 0022 5364     		str	r3, [r2, #68]
+  10:APP/APP.c     ****     
+  11:APP/APP.c     ****     Servo_Init(&ServoPitch, 1, 180, 0, 0.1, TIM_CHANNEL_1, &htim3, 0);
+  67              		.loc 1 11 5 view .LVU4
+  68 0024 DFED138A 		vldr.32	s17, .L3+4
+  69 0028 9FED138A 		vldr.32	s16, .L3+8
+  70 002c 0194     		str	r4, [sp, #4]
+  71 002e 0025     		movs	r5, #0
+  72 0030 0095     		str	r5, [sp]
+  73 0032 F0EE680A 		vmov.f32	s1, s17
+  74 0036 B0EE480A 		vmov.f32	s0, s16
+  75 003a 2B46     		mov	r3, r5
+  76 003c B422     		movs	r2, #180
+  77 003e 0121     		movs	r1, #1
+  78 0040 0E48     		ldr	r0, .L3+12
+  79 0042 FFF7FEFF 		bl	Servo_Init
+  80              	.LVL2:
+  12:APP/APP.c     ****     Servo_Init(&ServoYaw, 1, 180, 0, 0.1, TIM_CHANNEL_2, &htim3, 0);
+  81              		.loc 1 12 5 view .LVU5
+  82 0046 0194     		str	r4, [sp, #4]
+  83 0048 0423     		movs	r3, #4
+  84 004a 0093     		str	r3, [sp]
+  85 004c F0EE680A 		vmov.f32	s1, s17
+  86 0050 B0EE480A 		vmov.f32	s0, s16
+  87 0054 2B46     		mov	r3, r5
+  88 0056 B422     		movs	r2, #180
+  89 0058 0121     		movs	r1, #1
+  90 005a 0948     		ldr	r0, .L3+16
+  91 005c FFF7FEFF 		bl	Servo_Init
+  92              	.LVL3:
+  13:APP/APP.c     **** 
+  14:APP/APP.c     ****     printf("Init Success\r\n");
+  93              		.loc 1 14 5 view .LVU6
+  94 0060 0848     		ldr	r0, .L3+20
+  95 0062 FFF7FEFF 		bl	printf_
+  96              	.LVL4:
+  15:APP/APP.c     **** }
+  97              		.loc 1 15 1 is_stmt 0 view .LVU7
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s 			page 3
+
+
+  98 0066 03B0     		add	sp, sp, #12
+  99              	.LCFI3:
+ 100              		.cfi_def_cfa_offset 20
+ 101              		@ sp needed
+ 102 0068 BDEC028B 		vldm	sp!, {d8}
+ 103              	.LCFI4:
+ 104              		.cfi_restore 80
+ 105              		.cfi_restore 81
+ 106              		.cfi_def_cfa_offset 12
+ 107 006c 30BD     		pop	{r4, r5, pc}
+ 108              	.L4:
+ 109 006e 00BF     		.align	2
+ 110              	.L3:
+ 111 0070 00000000 		.word	htim3
+ 112 0074 00000000 		.word	0
+ 113 0078 CDCCCC3D 		.word	1036831949
+ 114 007c 00000000 		.word	ServoPitch
+ 115 0080 00000000 		.word	ServoYaw
+ 116 0084 00000000 		.word	.LC0
+ 117              		.cfi_endproc
+ 118              	.LFE134:
+ 120              		.section	.text.APP_Run,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	APP_Run
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	APP_Run:
+ 128              	.LFB135:
+  16:APP/APP.c     **** 
+  17:APP/APP.c     **** void APP_Run()
+  18:APP/APP.c     **** {
+ 129              		.loc 1 18 1 is_stmt 1 view -0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+  19:APP/APP.c     ****     
+  20:APP/APP.c     ****     //printf("%d,%d\r\n",ServoA.Current_Angle,ServoA.Target_Angle);
+  21:APP/APP.c     **** }...
+ 134              		.loc 1 21 1 view .LVU9
+ 135 0000 7047     		bx	lr
+ 136              		.cfi_endproc
+ 137              	.LFE135:
+ 139              		.text
+ 140              	.Letext0:
+ 141              		.file 2 "d:\\dev\\gnu arm embedded toolchain\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\inclu
+ 142              		.file 3 "d:\\dev\\gnu arm embedded toolchain\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\inclu
+ 143              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h"
+ 144              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 145              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 146              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 147              		.file 8 "HardWare/Servo/Servo.h"
+ 148              		.file 9 "Core/Inc/tim.h"
+ 149              		.file 10 "HardWare/debug/printf.h"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 APP.c
+C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s:20     .rodata.APP_Init.str1.4:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s:24     .text.APP_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s:30     .text.APP_Init:00000000 APP_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s:111    .text.APP_Init:00000070 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s:121    .text.APP_Run:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\cc8fjxAa.s:127    .text.APP_Run:00000000 APP_Run
+
+UNDEFINED SYMBOLS
+HAL_TIM_PWM_Start
+Servo_Init
+printf_
+htim3
+ServoPitch
+ServoYaw

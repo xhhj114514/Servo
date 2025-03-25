@@ -1,0 +1,427 @@
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"Servo.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	__aeabi_f2d
+  20              		.global	__aeabi_dadd
+  21              		.global	__aeabi_d2uiz
+  22              		.section	.text.Servo_Set_Abso_Angle,"ax",%progbits
+  23              		.align	1
+  24              		.global	Servo_Set_Abso_Angle
+  25              		.syntax unified
+  26              		.thumb
+  27              		.thumb_func
+  29              	Servo_Set_Abso_Angle:
+  30              	.LVL0:
+  31              	.LFB135:
+  32              		.file 1 "HardWare/Servo/Servo.c"
+   1:HardWare/Servo/Servo.c **** #include "Servo.h"
+   2:HardWare/Servo/Servo.c **** Servo_t ServoPitch;
+   3:HardWare/Servo/Servo.c **** Servo_t ServoYaw;
+   4:HardWare/Servo/Servo.c **** 
+   5:HardWare/Servo/Servo.c **** void Servo_Init(Servo_t *Servo , uint8_t id ,uint8_t max ,uint8_t min ,float Res, uint32_t channel 
+   6:HardWare/Servo/Servo.c **** {
+   7:HardWare/Servo/Servo.c ****     Servo->ID = id;
+   8:HardWare/Servo/Servo.c ****     Servo->Resolution_Angle = Res;
+   9:HardWare/Servo/Servo.c ****     Servo->MAX_Angle = max;
+  10:HardWare/Servo/Servo.c ****     Servo->MIN_Angle = min;
+  11:HardWare/Servo/Servo.c ****     Servo->htim = htim;
+  12:HardWare/Servo/Servo.c ****     Servo->Channel = channel;
+  13:HardWare/Servo/Servo.c ****     Servo_Set_Abso_Angle(Servo, InitTarget);
+  14:HardWare/Servo/Servo.c ****     Servo->Current_Angle = InitTarget;
+  15:HardWare/Servo/Servo.c **** }
+  16:HardWare/Servo/Servo.c **** 
+  17:HardWare/Servo/Servo.c **** 
+  18:HardWare/Servo/Servo.c **** void Servo_Set_Abso_Angle(Servo_t *Servo , float Angle)
+  19:HardWare/Servo/Servo.c **** {
+  33              		.loc 1 19 1 view -0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 8
+  36              		@ frame_needed = 0, uses_anonymous_args = 0
+  37              		.loc 1 19 1 is_stmt 0 view .LVU1
+  38 0000 10B5     		push	{r4, lr}
+  39              	.LCFI0:
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 2
+
+
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 4, -8
+  42              		.cfi_offset 14, -4
+  43 0002 2DED028B 		vpush.64	{d8}
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 16
+  46              		.cfi_offset 80, -16
+  47              		.cfi_offset 81, -12
+  48 0006 82B0     		sub	sp, sp, #8
+  49              	.LCFI2:
+  50              		.cfi_def_cfa_offset 24
+  51 0008 0446     		mov	r4, r0
+  52 000a B0EE408A 		vmov.f32	s16, s0
+  20:HardWare/Servo/Servo.c ****     volatile uint32_t pwm = (uint32_t)((Angle/Servo->MAX_Angle)*4000+(0.5/20)*40000);
+  53              		.loc 1 20 5 is_stmt 1 view .LVU2
+  54              		.loc 1 20 52 is_stmt 0 view .LVU3
+  55 000e 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  56 0010 07EE903A 		vmov	s15, r3	@ int
+  57              		.loc 1 20 46 view .LVU4
+  58 0014 F8EEE77A 		vcvt.f32.s32	s15, s15
+  59 0018 80EE277A 		vdiv.f32	s14, s0, s15
+  60              		.loc 1 20 64 view .LVU5
+  61 001c DFED167A 		vldr.32	s15, .L9
+  62 0020 67EE277A 		vmul.f32	s15, s14, s15
+  63 0024 17EE900A 		vmov	r0, s15
+  64              	.LVL1:
+  65              		.loc 1 20 64 view .LVU6
+  66 0028 FFF7FEFF 		bl	__aeabi_f2d
+  67              	.LVL2:
+  68              		.loc 1 20 69 view .LVU7
+  69 002c 0022     		movs	r2, #0
+  70 002e 134B     		ldr	r3, .L9+4
+  71 0030 FFF7FEFF 		bl	__aeabi_dadd
+  72              	.LVL3:
+  73              		.loc 1 20 29 view .LVU8
+  74 0034 FFF7FEFF 		bl	__aeabi_d2uiz
+  75              	.LVL4:
+  76              		.loc 1 20 23 view .LVU9
+  77 0038 0190     		str	r0, [sp, #4]
+  21:HardWare/Servo/Servo.c **** 
+  22:HardWare/Servo/Servo.c ****     __HAL_TIM_SET_COMPARE(Servo->htim, Servo->Channel, pwm);
+  78              		.loc 1 22 5 is_stmt 1 view .LVU10
+  79 003a E368     		ldr	r3, [r4, #12]
+  80 003c 4BB9     		cbnz	r3, .L2
+  81              		.loc 1 22 5 is_stmt 0 discriminator 1 view .LVU11
+  82 003e A368     		ldr	r3, [r4, #8]
+  83 0040 1B68     		ldr	r3, [r3]
+  84 0042 019A     		ldr	r2, [sp, #4]
+  85 0044 5A63     		str	r2, [r3, #52]
+  86              	.L3:
+  23:HardWare/Servo/Servo.c **** 
+  24:HardWare/Servo/Servo.c ****     Servo->Current_Angle = Angle;
+  87              		.loc 1 24 5 is_stmt 1 view .LVU12
+  88              		.loc 1 24 26 is_stmt 0 view .LVU13
+  89 0046 84ED058A 		vstr.32	s16, [r4, #20]
+  25:HardWare/Servo/Servo.c **** 
+  26:HardWare/Servo/Servo.c **** }
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 3
+
+
+  90              		.loc 1 26 1 view .LVU14
+  91 004a 02B0     		add	sp, sp, #8
+  92              	.LCFI3:
+  93              		.cfi_remember_state
+  94              		.cfi_def_cfa_offset 16
+  95              		@ sp needed
+  96 004c BDEC028B 		vldm	sp!, {d8}
+  97              	.LCFI4:
+  98              		.cfi_restore 80
+  99              		.cfi_restore 81
+ 100              		.cfi_def_cfa_offset 8
+ 101              	.LVL5:
+ 102              		.loc 1 26 1 view .LVU15
+ 103 0050 10BD     		pop	{r4, pc}
+ 104              	.LVL6:
+ 105              	.L2:
+ 106              	.LCFI5:
+ 107              		.cfi_restore_state
+  22:HardWare/Servo/Servo.c **** 
+ 108              		.loc 1 22 5 discriminator 2 view .LVU16
+ 109 0052 042B     		cmp	r3, #4
+ 110 0054 06D0     		beq	.L7
+  22:HardWare/Servo/Servo.c **** 
+ 111              		.loc 1 22 5 discriminator 4 view .LVU17
+ 112 0056 082B     		cmp	r3, #8
+ 113 0058 09D0     		beq	.L8
+  22:HardWare/Servo/Servo.c **** 
+ 114              		.loc 1 22 5 discriminator 7 view .LVU18
+ 115 005a A368     		ldr	r3, [r4, #8]
+ 116 005c 1B68     		ldr	r3, [r3]
+ 117 005e 019A     		ldr	r2, [sp, #4]
+ 118 0060 1A64     		str	r2, [r3, #64]
+ 119 0062 F0E7     		b	.L3
+ 120              	.L7:
+  22:HardWare/Servo/Servo.c **** 
+ 121              		.loc 1 22 5 discriminator 3 view .LVU19
+ 122 0064 A368     		ldr	r3, [r4, #8]
+ 123 0066 1B68     		ldr	r3, [r3]
+ 124 0068 019A     		ldr	r2, [sp, #4]
+ 125 006a 9A63     		str	r2, [r3, #56]
+ 126 006c EBE7     		b	.L3
+ 127              	.L8:
+  22:HardWare/Servo/Servo.c **** 
+ 128              		.loc 1 22 5 discriminator 6 view .LVU20
+ 129 006e A368     		ldr	r3, [r4, #8]
+ 130 0070 1B68     		ldr	r3, [r3]
+ 131 0072 019A     		ldr	r2, [sp, #4]
+ 132 0074 DA63     		str	r2, [r3, #60]
+ 133 0076 E6E7     		b	.L3
+ 134              	.L10:
+ 135              		.align	2
+ 136              	.L9:
+ 137 0078 00007A45 		.word	1165623296
+ 138 007c 00408F40 		.word	1083129856
+ 139              		.cfi_endproc
+ 140              	.LFE135:
+ 142              		.section	.text.Servo_Init,"ax",%progbits
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 4
+
+
+ 143              		.align	1
+ 144              		.global	Servo_Init
+ 145              		.syntax unified
+ 146              		.thumb
+ 147              		.thumb_func
+ 149              	Servo_Init:
+ 150              	.LVL7:
+ 151              	.LFB134:
+   6:HardWare/Servo/Servo.c ****     Servo->ID = id;
+ 152              		.loc 1 6 1 is_stmt 1 view -0
+ 153              		.cfi_startproc
+ 154              		@ args = 8, pretend = 0, frame = 0
+ 155              		@ frame_needed = 0, uses_anonymous_args = 0
+   6:HardWare/Servo/Servo.c ****     Servo->ID = id;
+ 156              		.loc 1 6 1 is_stmt 0 view .LVU22
+ 157 0000 10B5     		push	{r4, lr}
+ 158              	.LCFI6:
+ 159              		.cfi_def_cfa_offset 8
+ 160              		.cfi_offset 4, -8
+ 161              		.cfi_offset 14, -4
+ 162 0002 2DED028B 		vpush.64	{d8}
+ 163              	.LCFI7:
+ 164              		.cfi_def_cfa_offset 16
+ 165              		.cfi_offset 80, -16
+ 166              		.cfi_offset 81, -12
+ 167 0006 0446     		mov	r4, r0
+ 168 0008 B0EE608A 		vmov.f32	s16, s1
+   7:HardWare/Servo/Servo.c ****     Servo->Resolution_Angle = Res;
+ 169              		.loc 1 7 5 is_stmt 1 view .LVU23
+   7:HardWare/Servo/Servo.c ****     Servo->Resolution_Angle = Res;
+ 170              		.loc 1 7 15 is_stmt 0 view .LVU24
+ 171 000c 0174     		strb	r1, [r0, #16]
+   8:HardWare/Servo/Servo.c ****     Servo->MAX_Angle = max;
+ 172              		.loc 1 8 5 is_stmt 1 view .LVU25
+   8:HardWare/Servo/Servo.c ****     Servo->MAX_Angle = max;
+ 173              		.loc 1 8 29 is_stmt 0 view .LVU26
+ 174 000e 80ED010A 		vstr.32	s0, [r0, #4]
+   9:HardWare/Servo/Servo.c ****     Servo->MIN_Angle = min;
+ 175              		.loc 1 9 5 is_stmt 1 view .LVU27
+   9:HardWare/Servo/Servo.c ****     Servo->MIN_Angle = min;
+ 176              		.loc 1 9 22 is_stmt 0 view .LVU28
+ 177 0012 0270     		strb	r2, [r0]
+  10:HardWare/Servo/Servo.c ****     Servo->htim = htim;
+ 178              		.loc 1 10 5 is_stmt 1 view .LVU29
+  10:HardWare/Servo/Servo.c ****     Servo->htim = htim;
+ 179              		.loc 1 10 22 is_stmt 0 view .LVU30
+ 180 0014 4370     		strb	r3, [r0, #1]
+  11:HardWare/Servo/Servo.c ****     Servo->Channel = channel;
+ 181              		.loc 1 11 5 is_stmt 1 view .LVU31
+  11:HardWare/Servo/Servo.c ****     Servo->Channel = channel;
+ 182              		.loc 1 11 17 is_stmt 0 view .LVU32
+ 183 0016 059B     		ldr	r3, [sp, #20]
+ 184              	.LVL8:
+  11:HardWare/Servo/Servo.c ****     Servo->Channel = channel;
+ 185              		.loc 1 11 17 view .LVU33
+ 186 0018 8360     		str	r3, [r0, #8]
+  12:HardWare/Servo/Servo.c ****     Servo_Set_Abso_Angle(Servo, InitTarget);
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 5
+
+
+ 187              		.loc 1 12 5 is_stmt 1 view .LVU34
+  12:HardWare/Servo/Servo.c ****     Servo_Set_Abso_Angle(Servo, InitTarget);
+ 188              		.loc 1 12 20 is_stmt 0 view .LVU35
+ 189 001a 049B     		ldr	r3, [sp, #16]
+ 190 001c C360     		str	r3, [r0, #12]
+  13:HardWare/Servo/Servo.c ****     Servo->Current_Angle = InitTarget;
+ 191              		.loc 1 13 5 is_stmt 1 view .LVU36
+ 192 001e B0EE600A 		vmov.f32	s0, s1
+ 193              	.LVL9:
+  13:HardWare/Servo/Servo.c ****     Servo->Current_Angle = InitTarget;
+ 194              		.loc 1 13 5 is_stmt 0 view .LVU37
+ 195 0022 FFF7FEFF 		bl	Servo_Set_Abso_Angle
+ 196              	.LVL10:
+  14:HardWare/Servo/Servo.c **** }
+ 197              		.loc 1 14 5 is_stmt 1 view .LVU38
+  14:HardWare/Servo/Servo.c **** }
+ 198              		.loc 1 14 26 is_stmt 0 view .LVU39
+ 199 0026 84ED058A 		vstr.32	s16, [r4, #20]
+  15:HardWare/Servo/Servo.c **** 
+ 200              		.loc 1 15 1 view .LVU40
+ 201 002a BDEC028B 		vldm	sp!, {d8}
+ 202              	.LCFI8:
+ 203              		.cfi_restore 80
+ 204              		.cfi_restore 81
+ 205              		.cfi_def_cfa_offset 8
+ 206              	.LVL11:
+  15:HardWare/Servo/Servo.c **** 
+ 207              		.loc 1 15 1 view .LVU41
+ 208 002e 10BD     		pop	{r4, pc}
+  15:HardWare/Servo/Servo.c **** 
+ 209              		.loc 1 15 1 view .LVU42
+ 210              		.cfi_endproc
+ 211              	.LFE134:
+ 213              		.section	.text.Servo_Set_Relat_Angle,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	Servo_Set_Relat_Angle
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ 220              	Servo_Set_Relat_Angle:
+ 221              	.LVL12:
+ 222              	.LFB136:
+  27:HardWare/Servo/Servo.c **** void Servo_Set_Relat_Angle(Servo_t *Servo , uint8_t DeltaAngle)
+  28:HardWare/Servo/Servo.c **** {
+ 223              		.loc 1 28 1 is_stmt 1 view -0
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 16
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		.loc 1 28 1 is_stmt 0 view .LVU44
+ 228 0000 10B5     		push	{r4, lr}
+ 229              	.LCFI9:
+ 230              		.cfi_def_cfa_offset 8
+ 231              		.cfi_offset 4, -8
+ 232              		.cfi_offset 14, -4
+ 233 0002 84B0     		sub	sp, sp, #16
+ 234              	.LCFI10:
+ 235              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 6
+
+
+ 236 0004 0446     		mov	r4, r0
+ 237 0006 07EE901A 		vmov	s15, r1	@ int
+  29:HardWare/Servo/Servo.c ****     volatile uint8_t Angle_INT;
+ 238              		.loc 1 29 5 is_stmt 1 view .LVU45
+  30:HardWare/Servo/Servo.c ****     if(Servo->Current_Angle + DeltaAngle > Servo->MAX_Angle)
+ 239              		.loc 1 30 5 view .LVU46
+ 240              		.loc 1 30 13 is_stmt 0 view .LVU47
+ 241 000a 90ED057A 		vldr.32	s14, [r0, #20]
+ 242              		.loc 1 30 29 view .LVU48
+ 243 000e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 244 0012 77EE877A 		vadd.f32	s15, s15, s14
+ 245              		.loc 1 30 49 view .LVU49
+ 246 0016 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 247              		.loc 1 30 42 view .LVU50
+ 248 0018 07EE103A 		vmov	s14, r3	@ int
+ 249 001c B8EEC77A 		vcvt.f32.s32	s14, s14
+ 250              		.loc 1 30 7 view .LVU51
+ 251 0020 F4EEC77A 		vcmpe.f32	s15, s14
+ 252 0024 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 253 0028 16DD     		ble	.L18
+  31:HardWare/Servo/Servo.c ****     {
+  32:HardWare/Servo/Servo.c ****         Angle_INT = Servo->MAX_Angle;
+ 254              		.loc 1 32 9 is_stmt 1 view .LVU52
+ 255              		.loc 1 32 19 is_stmt 0 view .LVU53
+ 256 002a 8DF80F30 		strb	r3, [sp, #15]
+ 257              	.L16:
+  33:HardWare/Servo/Servo.c ****     }
+  34:HardWare/Servo/Servo.c ****     else
+  35:HardWare/Servo/Servo.c ****     {
+  36:HardWare/Servo/Servo.c ****         Angle_INT = Servo->Current_Angle + DeltaAngle;
+  37:HardWare/Servo/Servo.c ****     }
+  38:HardWare/Servo/Servo.c ****     Servo_Set_Abso_Angle(Servo , Angle_INT);
+ 258              		.loc 1 38 5 is_stmt 1 view .LVU54
+ 259 002e 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+ 260 0032 DBB2     		uxtb	r3, r3
+ 261 0034 00EE103A 		vmov	s0, r3	@ int
+ 262 0038 B8EE400A 		vcvt.f32.u32	s0, s0
+ 263 003c 2046     		mov	r0, r4
+ 264              	.LVL13:
+ 265              		.loc 1 38 5 is_stmt 0 view .LVU55
+ 266 003e FFF7FEFF 		bl	Servo_Set_Abso_Angle
+ 267              	.LVL14:
+  39:HardWare/Servo/Servo.c ****     Servo->Current_Angle = Angle_INT;
+ 268              		.loc 1 39 5 is_stmt 1 view .LVU56
+ 269              		.loc 1 39 26 is_stmt 0 view .LVU57
+ 270 0042 9DF80F30 		ldrb	r3, [sp, #15]	@ zero_extendqisi2
+ 271 0046 DBB2     		uxtb	r3, r3
+ 272 0048 07EE903A 		vmov	s15, r3	@ int
+ 273 004c F8EE677A 		vcvt.f32.u32	s15, s15
+ 274 0050 C4ED057A 		vstr.32	s15, [r4, #20]
+  40:HardWare/Servo/Servo.c **** }
+ 275              		.loc 1 40 1 view .LVU58
+ 276 0054 04B0     		add	sp, sp, #16
+ 277              	.LCFI11:
+ 278              		.cfi_remember_state
+ 279              		.cfi_def_cfa_offset 8
+ 280              		@ sp needed
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 7
+
+
+ 281 0056 10BD     		pop	{r4, pc}
+ 282              	.LVL15:
+ 283              	.L18:
+ 284              	.LCFI12:
+ 285              		.cfi_restore_state
+  36:HardWare/Servo/Servo.c ****     }
+ 286              		.loc 1 36 9 is_stmt 1 view .LVU59
+  36:HardWare/Servo/Servo.c ****     }
+ 287              		.loc 1 36 19 is_stmt 0 view .LVU60
+ 288 0058 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 289 005c CDED017A 		vstr.32	s15, [sp, #4]	@ int
+ 290 0060 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 291 0064 8DF80F30 		strb	r3, [sp, #15]
+ 292 0068 E1E7     		b	.L16
+ 293              		.cfi_endproc
+ 294              	.LFE136:
+ 296              		.global	ServoYaw
+ 297              		.global	ServoPitch
+ 298              		.section	.bss.ServoPitch,"aw",%nobits
+ 299              		.align	2
+ 302              	ServoPitch:
+ 303 0000 00000000 		.space	24
+ 303      00000000 
+ 303      00000000 
+ 303      00000000 
+ 303      00000000 
+ 304              		.section	.bss.ServoYaw,"aw",%nobits
+ 305              		.align	2
+ 308              	ServoYaw:
+ 309 0000 00000000 		.space	24
+ 309      00000000 
+ 309      00000000 
+ 309      00000000 
+ 309      00000000 
+ 310              		.text
+ 311              	.Letext0:
+ 312              		.file 2 "d:\\dev\\gnu arm embedded toolchain\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\inclu
+ 313              		.file 3 "d:\\dev\\gnu arm embedded toolchain\\gcc-arm-none-eabi-10.3-2021.10\\arm-none-eabi\\inclu
+ 314              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h"
+ 315              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 316              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 317              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 318              		.file 8 "HardWare/Servo/Servo.h"
+ARM GAS  C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 Servo.c
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:23     .text.Servo_Set_Abso_Angle:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:29     .text.Servo_Set_Abso_Angle:00000000 Servo_Set_Abso_Angle
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:137    .text.Servo_Set_Abso_Angle:00000078 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:143    .text.Servo_Init:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:149    .text.Servo_Init:00000000 Servo_Init
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:214    .text.Servo_Set_Relat_Angle:00000000 $t
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:220    .text.Servo_Set_Relat_Angle:00000000 Servo_Set_Relat_Angle
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:308    .bss.ServoYaw:00000000 ServoYaw
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:302    .bss.ServoPitch:00000000 ServoPitch
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:299    .bss.ServoPitch:00000000 $d
+C:\Users\ADMINI~1\AppData\Local\Temp\cco6MvZ8.s:305    .bss.ServoYaw:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_f2d
+__aeabi_dadd
+__aeabi_d2uiz
